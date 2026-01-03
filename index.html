@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rate Kinkob Kreations</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #001f3f;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    .card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      text-align: center;
+      width: 90%;
+      max-width: 420px;
+      animation: fadeIn 0.7s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    img.logo {
+      width: 150px;
+      margin-bottom: 12px;
+    }
+
+    img.google {
+      width: 60px;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+
+    h1 {
+      color: #333;
+      font-size: 20px;
+      margin: 10px 0 4px;
+    }
+
+    p {
+      color: #666;
+      margin: 0 0 14px;
+      font-size: 15px;
+    }
+
+    .stars {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .star {
+      font-size: 38px;
+      cursor: pointer;
+      color: transparent;
+      -webkit-text-stroke: 1.5px #ffb400;
+      transition: all 0.2s ease;
+    }
+
+    .star.filled {
+      color: #ffb400;
+      transform: scale(1.15);
+    }
+
+    .hint {
+      font-size: 13px;
+      color: #777;
+      margin-bottom: 15px;
+      min-height: 18px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .submit-btn {
+      background: #ffb400;
+      color: #001f3f;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 25px;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s;
+      min-width: 150px;
+    }
+
+    .submit-btn:hover {
+      background: #e0a200;
+    }
+
+    .submit-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .social-icons a {
+      color: #001f3f;
+      font-size: 22px;
+      transition: color 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #ffb400;
+    }
+
+    .disclaimer {
+      font-size: 11px;
+      color: #999;
+      margin-top: 14px;
+    }
+	.hidden {
+  display: none;
+}
+.submit-btn {
+  animation: fadeIn 0.4s ease;
+}
+
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <img src="https://i.ibb.co/bjdZBy8z/Hotel-Logo-25.png" class="logo" alt="Kinkob Kreations Logo">
+
+    <h1>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" class="google">
+      Rate Us
+    </h1>
+
+    <p>Our Service and Product</p>
+
+    <div class="stars">
+      <span class="star" data-value="1">★</span>
+      <span class="star" data-value="2">★</span>
+      <span class="star" data-value="3">★</span>
+      <span class="star" data-value="4">★</span>
+      <span class="star" data-value="5">★</span>
+    </div>
+
+    <div class="hint" id="hintText">
+      Please select a rating
+    </div>
+	
+<div class="buttons">
+  <button class="submit-btn hidden" id="googleBtn">
+    Post on Google
+  </button>
+
+  <button class="submit-btn hidden" id="feedbackBtn">
+    Send Feedback
+  </button>
+</div>
+
+    <div class="social-icons">
+      <a href="https://www.facebook.com/KinkobKreations" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://www.instagram.com/kinkobkreationsofficial" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/company/knkob-kreations/" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.youtube.com/@kinkobkreations" target="_blank"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.kinkob.in/" target="_blank"><i class="fas fa-globe"></i></a>
+    </div>
+
+    <div class="disclaimer">
+      This page is not affiliated with Google. Your review choice is optional.
+    </div>
+  </div>
+
+  <script>
+const GOOGLE_REVIEW_URL =
+  "https://search.google.com/local/writereview?placeid=ChIJ__H40ZHA1DsRuttOMA30ZAc";
+
+const FEEDBACK_FORM_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLSdAVc_T-60P-Vuj5AFvleyz7cvKWGVmu6FrGZb4CMaqvz1oqQ/viewform";
+
+const stars = document.querySelectorAll(".star");
+const googleBtn = document.getElementById("googleBtn");
+const feedbackBtn = document.getElementById("feedbackBtn");
+const hintText = document.getElementById("hintText");
+
+let selectedRating = 0;
+
+stars.forEach(star => {
+  star.addEventListener("click", () => {
+    selectedRating = parseInt(star.dataset.value);
+
+    // Fill stars
+    stars.forEach(s => s.classList.remove("filled"));
+    for (let i = 0; i < selectedRating; i++) {
+      stars[i].classList.add("filled");
+    }
+
+    // Hide both first
+    googleBtn.classList.add("hidden");
+    feedbackBtn.classList.add("hidden");
+
+    // Show ONLY one button
+    if (selectedRating >= 4) {
+      googleBtn.classList.remove("hidden");
+      hintText.textContent = "Thanks! You can post your review on Google ⭐";
+    } else {
+      feedbackBtn.classList.remove("hidden");
+      hintText.textContent = "We’d love your feedback so we can improve 🙏";
+    }
+  });
+});
+
+googleBtn.addEventListener("click", () => {
+  window.open(GOOGLE_REVIEW_URL, "_blank");
+});
+
+feedbackBtn.addEventListener("click", () => {
+  window.open(FEEDBACK_FORM_URL, "_blank");
+});
+</script>
+
+
+</body>
+</html>
